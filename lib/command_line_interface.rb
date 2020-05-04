@@ -14,5 +14,6 @@ if input.empty?
   puts "You did not put anything in!"
   get_character_from_user
 end
+input
   # use gets to capture the user's input. This method should return that input, downcased.
 end
