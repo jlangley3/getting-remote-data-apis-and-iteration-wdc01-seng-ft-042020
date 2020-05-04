@@ -13,3 +13,9 @@ show_character_movies(character)
 
 
 #https://swapi.dev/
+
+#https://swapi.dev/api/people/1/
+
+# character_data = RestClient.get('http://swapi.dev/api/people/5')
+ 
+# puts JSON.parse(character_data)
