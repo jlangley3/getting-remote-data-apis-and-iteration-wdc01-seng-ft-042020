@@ -10,14 +10,9 @@ def get_character_movies_from_api(character_name)
   character = response_hash["results"].find do |character|
     character["name"].downcase == character_name.downcase
   end
-  if character
-   film_array = character["films"].collect do |film|
-    film_data = JSON.parse(RestClient.get(film))
-    film_data["title"]
-  end
-  else
-    return "No Results Found"
-  end 
+
+  validate_results(character)
+
   # iterate over the response hash to find the collection of `films` for the given
   #   `character`
   # collect those film API urls, make a web request to each URL to get the info
@@ -27,6 +22,21 @@ def get_character_movies_from_api(character_name)
   # this collection will be the argument given to `print_movies`
   #  and that method will do some nice presentation stuff like puts out a list
   #  of movies by title. Have a play around with the puts with other info about a given film.
+end
+
+def validate_results(character)
+  if character
+    fetch_films(character)
+  else
+    return "No Results Found"
+  end 
+end
+
+def fetch_films(character)
+  film_array = character["films"].collect do |film|
+    film_data = JSON.parse(RestClient.get(film))
+    film_data["title"]
+  end
 end
 
 def print_movies(films)
